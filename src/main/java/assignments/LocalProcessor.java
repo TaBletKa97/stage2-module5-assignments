@@ -36,7 +36,9 @@ public class LocalProcessor {
     public void iterateListHashCodes(List<String> stringList) {
         stringArrayList = stringList;
         for (String str: stringList) {
-            System.out.println(str.hashCode());
+            if (str != null) {
+                System.out.println(str.hashCode());
+            }
         }
     }
 
