@@ -2,11 +2,8 @@ package assignments;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
-import java.util.stream.Collectors;
 
 import assignments.annotations.FullNameProcessorGeneratorAnnotation;
 import assignments.annotations.ListIteratorAnnotation;
@@ -21,6 +18,8 @@ public class LocalProcessor {
     private long period = 10_000_000_000_000L;
     protected String processorVersion;
     private int valueOfCheap;
+    private Scanner informationScanner;
+    public static List<String> stringArrayList;
 
     public LocalProcessor(String processorName, long period,
                           String processorVersion, int valueOfCheap) {
@@ -35,6 +34,7 @@ public class LocalProcessor {
 
     @ListIteratorAnnotation
     public void iterateListHashCodes(List<String> stringList) {
+        stringArrayList = stringList;
         for (String str: stringList) {
             System.out.println(str.hashCode());
         }
@@ -48,6 +48,7 @@ public class LocalProcessor {
     @ReadFullProcessorNameAnnotation
     public void readFullProcessorName(File file) throws FileNotFoundException {
         try (Scanner informationScanner = new Scanner(file)) {
+            this.informationScanner = informationScanner;
             StringBuilder version = new StringBuilder(processorVersion);
             while (informationScanner.hasNext()) {
                 version.append(informationScanner.nextLine());
