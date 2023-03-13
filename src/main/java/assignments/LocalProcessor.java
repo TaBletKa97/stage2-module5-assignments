@@ -38,12 +38,14 @@ public class LocalProcessor {
         for (String str: stringList) {
             if (str != null) {
                 System.out.println(str.hashCode());
+                System.out.println(processorName == null ? "" : processorName);
             }
         }
     }
 
     @FullNameProcessorGeneratorAnnotation
     public String generateFullNameProcessor(List<String> stringList) {
+        processorName = processorName == null ? "" : processorName;
         return processorName += String.join(" ", stringList);
     }
 
@@ -51,7 +53,8 @@ public class LocalProcessor {
     public void readFullProcessorName(File file) throws FileNotFoundException {
         try (Scanner informationScanner = new Scanner(file)) {
             this.informationScanner = informationScanner;
-            StringBuilder version = new StringBuilder(processorVersion);
+            StringBuilder version = new StringBuilder(processorVersion == null ?
+                    "" : processorName);
             while (informationScanner.hasNext()) {
                 version.append(informationScanner.nextLine());
             }
